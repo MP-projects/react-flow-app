@@ -1,9 +1,13 @@
+import { useState } from "react";
+
 import {
   Card,
   Typography,
   CardContent,
   CardActions,
   Button,
+  TextField,
+  TextareaAutosize,
 } from "@mui/material";
 
 import DragHandleIcon from "@mui/icons-material/DragHandle";
@@ -20,8 +24,15 @@ export default function BasicCard({
   id,
 }) {
   const { setNodes } = useReactFlow();
-  const ref = useRef();
-  useOnClickOutside(ref, () => {
+
+  const cardRef = useRef();
+
+  const [titleEdit, setTitleEdit] = useState(false);
+  const [commentEdit, setCommentEdit] = useState(false);
+  const [titleValue, setTitleValue] = useState(title);
+  const [commentValue, setCommentValue] = useState(text);
+
+  useOnClickOutside(cardRef, () => {
     setSelect(false);
   });
   const setSelect = (selected) => {
@@ -48,14 +59,48 @@ export default function BasicCard({
       onClick={() => {
         setSelect(true);
       }}
-      ref={ref}>
+      ref={cardRef}>
       <DragHandleIcon className="drag-handler" />
       <CardContent>
-        <Typography variant="h5" component="div" gutterBottom>
-          {title}
-        </Typography>
+        {!titleEdit ? (
+          <Typography
+            onClick={() => {
+              setTitleEdit(true);
+            }}
+            sx={{ cursor: "text" }}
+            variant="h5"
+            component="div"
+            gutterBottom>
+            {titleValue}
+          </Typography>
+        ) : (
+          <TextField
+            value={titleValue}
+            onChange={(e) => {
+              setTitleValue(e.target.value);
+            }}
+            autoFocus={true}
+            onBlur={() => setTitleEdit(false)}></TextField>
+        )}
 
-        <Typography variant="body2">{text}</Typography>
+        {!commentEdit ? (
+          <Typography
+            sx={{ cursor: "text" }}
+            onClick={() => {
+              setCommentEdit(true);
+            }}
+            variant="body2">
+            {commentValue}
+          </Typography>
+        ) : (
+          <TextField
+            value={commentValue}
+            onChange={(e) => {
+              setCommentValue(e.target.value);
+            }}
+            autoFocus={true}
+            onBlur={() => setCommentEdit(false)}></TextField>
+        )}
       </CardContent>
       <CardActions sx={{ justifyContent: "center" }}>
         <Button onClick={click} size="small">

@@ -1,14 +1,12 @@
-import {
-  Card,
-  Typography,
-  CardContent,
+import { Card, Typography, CardContent } from "@mui/material";
 
-} from "@mui/material";
-
-
-export default function BasicCardDraggable({ type }) {
+export default function BasicCardDraggable({ type, onDragStart }) {
   return (
-    <Card small sx={{ minWidth: 175, cursor: "grab" }}>
+    <Card
+      onDragStart={onDragStart}
+      draggable
+      small="true"
+      sx={{ minWidth: 175, cursor: "grab" }}>
       <CardContent
         align="center"
         sx={{

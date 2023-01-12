@@ -31,7 +31,8 @@ const initialNodes = [
     position: { x: 382, y: 74 },
     dragHandle: ".drag-handler",
     data: {
-      title: "Node 1",
+      title:
+        "Node 1",
       text: "comment here",
       click: checkPosition,
       buttonTitle: "click here to check postition",

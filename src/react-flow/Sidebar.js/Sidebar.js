@@ -50,10 +50,12 @@ export default function SideBar() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-              }}
-              onDragStart={(event) => onDragStart(event, "customInput")}
-              draggable>
-              <BasicCardDraggable type="input" />
+              }}>
+              <BasicCardDraggable
+                onDragStart={(event) => onDragStart(event, "customInput")}
+                
+                type="input"
+              />
             </ListItem>
             <Divider />
             <ListItem
@@ -62,10 +64,12 @@ export default function SideBar() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-              }}
-              onDragStart={(event) => onDragStart(event, "customDefault")}
-              draggable>
-              <BasicCardDraggable type="default" />
+              }}>
+              <BasicCardDraggable
+                onDragStart={(event) => onDragStart(event, "customDefault")}
+                
+                type="default"
+              />
             </ListItem>
             <Divider />
             <ListItem
@@ -74,10 +78,12 @@ export default function SideBar() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-              }}
-              onDragStart={(event) => onDragStart(event, "customOutput")}
-              draggable>
-              <BasicCardDraggable type="output" />
+              }}>
+              <BasicCardDraggable
+                type="output"
+                onDragStart={(event) => onDragStart(event, "customOutput")}
+                
+              />
             </ListItem>
           </List>
         </nav>
