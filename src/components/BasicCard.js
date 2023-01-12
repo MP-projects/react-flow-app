@@ -8,7 +8,7 @@ import {
 
 import DragHandleIcon from "@mui/icons-material/DragHandle";
 import { useReactFlow } from "reactflow";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import useOnClickOutside from "../hooks/useOnClickOutside";
 
 export default function BasicCard({
@@ -17,10 +17,8 @@ export default function BasicCard({
   click,
   buttonTitle,
   selected,
-  options,
   id,
 }) {
-  console.log(id);
   const { setNodes } = useReactFlow();
   const ref = useRef();
   useOnClickOutside(ref, () => {
@@ -30,7 +28,7 @@ export default function BasicCard({
     setNodes((nds) => {
       const currentNodes = [];
       if (nds.length > 0) {
-        nds.map((node) => {
+        nds.forEach((node) => {
           if (node.id === id) {
             node.selected = selected;
           }

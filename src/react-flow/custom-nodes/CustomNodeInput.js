@@ -4,9 +4,7 @@ import { Handle, Position} from "reactflow";
 import BasicCard from "../../components/BasicCard";
 
 const CustomNodeInput = (props) => {
-//   const reactFlowInstance = useReactFlow();
 
-//     console.log(reactFlowInstance);
   
   const pos = `posX = ${props.xPos}, posY = ${props.yPos}`;
   return (
@@ -17,7 +15,6 @@ const CustomNodeInput = (props) => {
         click={() => props.data.click(pos)}
               buttonTitle={props.data.buttonTitle}
         selected={props.selected}
-        options={props}
         id={props.id}
               
       />
