@@ -5,7 +5,7 @@ import ReactFlow, {
   Background,
   useNodesState,
   useEdgesState,
-    addEdge,
+  addEdge,
 } from "reactflow";
 
 import "reactflow/dist/style.css";
@@ -22,6 +22,7 @@ const initialNodes = [
   {
     id: "1",
     position: { x: 382, y: 74 },
+    dragHandle: ".drag-handler",
     data: {
       title: "Node 1",
       text: "comment here",
@@ -32,7 +33,8 @@ const initialNodes = [
   },
   {
     id: "2",
-    position: { x: 382, y: 290 },
+      position: { x: 382, y: 290 },
+      dragHandle: ".drag-handler",
     data: {
       title: "Node 2",
       text: "comment here",
@@ -43,7 +45,8 @@ const initialNodes = [
   },
   {
     id: "3",
-    position: { x: 106, y: 500 },
+      position: { x: 106, y: 500 },
+      dragHandle: ".drag-handler",
     data: {
       title: "Node 3",
       text: "comment here",
@@ -54,7 +57,8 @@ const initialNodes = [
   },
   {
     id: "4",
-    position: { x: 660, y: 500 },
+      position: { x: 660, y: 500 },
+      dragHandle: ".drag-handler",
     data: {
       title: "Node 4",
       text: "comment here",
@@ -72,12 +76,9 @@ const initialEdges = [
 ];
 
 export default function Flow() {
-
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-
-    
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]

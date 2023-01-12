@@ -38,3 +38,11 @@
     transform: rotate(360deg);
   }
 }
+
+.react-flow__selection{
+  border: 1px solid red;
+}
+.drag-handler {
+  padding:5px;
+  cursor:grab
+}
