@@ -22,8 +22,10 @@ export default function BasicCard({
   selected,
   id,
 }) {
-  const { setNodes, getNode } = useReactFlow();
+  const { setNodes, getNode, getEdges } = useReactFlow();
   const currentNode = getNode(id);
+  const currentEdges = getEdges()
+ 
   const cardRef = useRef();
 
   const [titleEdit, setTitleEdit] = useState(false);
@@ -48,6 +50,7 @@ export default function BasicCard({
         return nds;
       }
     });
+    console.log(currentEdges)
   };
 
   const updateTitle = () => {
