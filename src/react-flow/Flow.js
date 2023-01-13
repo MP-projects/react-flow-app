@@ -16,6 +16,7 @@ import CustomNodeInput from "./custom-nodes/CustomNodeInput";
 import CustomNodeDefault from "./custom-nodes/CustomNodeDefault";
 import CustomNodeOutput from "./custom-nodes/CustomNodeOutput";
 import SideBar from "./Sidebar.js/Sidebar";
+import CustomEdge from "./custom-edges/CustomEdge";
 
 const checkPosition = (pos) => {
   console.log(pos);
@@ -79,27 +80,21 @@ const initialEdges = [
     id: "e1-2",
     source: "1",
     target: "2",
-    markerEnd: {
-      type: MarkerType.Arrow,
-    },
+    type: "custom",
     animated: true,
   },
   {
     id: "e2-3",
     source: "2",
     target: "3",
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-    },
+    type: "custom",
     animated: true,
   },
   {
     id: "e2-4",
     source: "2",
     target: "4",
-    markerEnd: {
-      type: MarkerType.ArrowClosed,
-    },
+    type: "custom",
     animated: true,
   },
 ];
@@ -112,7 +107,9 @@ export default function Flow() {
 
   const onConnect = useCallback(
     (params) => {
-      setEdges((eds) => addEdge({...params, animated:true}, eds));
+      setEdges((eds) =>
+        addEdge({ ...params, animated: true, type: "custom" }, eds)
+      );
     },
     [setEdges]
   );
@@ -162,11 +159,18 @@ export default function Flow() {
     }),
     []
   );
+  const edgeTypes = useMemo(
+    () => ({
+      custom: CustomEdge,
+    }),
+    []
+  );
   return (
     <ReactFlowProvider>
       <ReactFlow
         ref={reactFlowWrapper}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         nodes={nodes}
         edges={edges}
         onNodesChange={onNodesChange}
