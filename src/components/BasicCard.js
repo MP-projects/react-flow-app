@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import {
   Card,
@@ -7,7 +7,6 @@ import {
   CardActions,
   Button,
   TextField,
-  TextareaAutosize,
 } from "@mui/material";
 
 import DragHandleIcon from "@mui/icons-material/DragHandle";
@@ -23,8 +22,8 @@ export default function BasicCard({
   selected,
   id,
 }) {
-  const { setNodes } = useReactFlow();
-
+  const { setNodes, getNode } = useReactFlow();
+  const currentNode = getNode(id);
   const cardRef = useRef();
 
   const [titleEdit, setTitleEdit] = useState(false);
@@ -35,23 +34,52 @@ export default function BasicCard({
   useOnClickOutside(cardRef, () => {
     setSelect(false);
   });
+ 
   const setSelect = (selected) => {
     setNodes((nds) => {
-      const currentNodes = [];
       if (nds.length > 0) {
         nds.forEach((node) => {
           if (node.id === id) {
             node.selected = selected;
           }
-          currentNodes.push(node);
         });
-        return currentNodes;
+        return nds;
       } else {
         return nds;
       }
     });
   };
 
+  const updateTitle = () => {
+    setNodes((nds) => {
+      if (nds.length > 0) {
+        nds.forEach((nd) => {
+          if (nd.id === id) {
+            nd.data.title = titleValue;
+          }
+        });
+        return nds;
+      } else return nds;
+    });
+  };
+  const upodateComment = () => {
+    setNodes((nds) => {
+      if (nds.length > 0) {
+        nds.forEach((nd) => {
+          if (nd.id === id) {
+            nd.data.text = commentValue;
+          }
+        });
+        return nds;
+      } else return nds;
+    });
+  };
+  useEffect(() => {
+    if (title && text) {
+      setTitleValue(title);
+      setCommentValue(text);
+    }
+  }, [title, text]);
   return (
     <Card
       sx={{ minWidth: 275, cursor: "pointer" }}
@@ -65,7 +93,9 @@ export default function BasicCard({
         {!titleEdit ? (
           <Typography
             onClick={() => {
-              setTitleEdit(true);
+              if (currentNode.selected) {
+                setTitleEdit(true);
+              }
             }}
             sx={{ cursor: "text" }}
             variant="h5"
@@ -80,14 +110,19 @@ export default function BasicCard({
               setTitleValue(e.target.value);
             }}
             autoFocus={true}
-            onBlur={() => setTitleEdit(false)}></TextField>
+            onBlur={() => {
+              updateTitle();
+              setTitleEdit(false);
+            }}></TextField>
         )}
 
         {!commentEdit ? (
           <Typography
             sx={{ cursor: "text" }}
             onClick={() => {
-              setCommentEdit(true);
+              if (currentNode.selected) {
+                setCommentEdit(true);
+              }
             }}
             variant="body2">
             {commentValue}
@@ -99,7 +134,10 @@ export default function BasicCard({
               setCommentValue(e.target.value);
             }}
             autoFocus={true}
-            onBlur={() => setCommentEdit(false)}></TextField>
+            onBlur={() => {
+              upodateComment();
+              setCommentEdit(false);
+            }}></TextField>
         )}
       </CardContent>
       <CardActions sx={{ justifyContent: "center" }}>

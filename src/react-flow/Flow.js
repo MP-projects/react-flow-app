@@ -19,11 +19,8 @@ import SideBar from "./Sidebar.js/Sidebar";
 const checkPosition = (pos) => {
   console.log(pos);
 };
-let id = 5;
 
-const getId = () => {
-  return `${id++}`;
-};
+const getId = () => new Date().getTime().toString();
 
 const initialNodes = [
   {
@@ -31,8 +28,7 @@ const initialNodes = [
     position: { x: 382, y: 74 },
     dragHandle: ".drag-handler",
     data: {
-      title:
-        "Node 1",
+      title: "Node 1",
       text: "comment here",
       click: checkPosition,
       buttonTitle: "click here to check postition",
@@ -78,9 +74,24 @@ const initialNodes = [
 ];
 
 const initialEdges = [
-  { id: "e1-2", source: "1", target: "2" },
-  { id: "e2-3", source: "2", target: "3" },
-  { id: "e2-4", source: "2", target: "4" },
+  {
+    id: "e1-2",
+    source: "1",
+    target: "2",
+    animated: true,
+  },
+  {
+    id: "e2-3",
+    source: "2",
+    target: "3",
+    animated: true,
+  },
+  {
+    id: "e2-4",
+    source: "2",
+    target: "4",
+    animated: true,
+  },
 ];
 
 export default function Flow() {
@@ -106,24 +117,22 @@ export default function Flow() {
       const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
       const type = event.dataTransfer.getData("application/reactflow");
 
-      // check if the dropped element is valid
       if (typeof type === "undefined" || !type) {
         return;
       }
-
       const position = reactFlowInstance.project({
         x: event.clientX - reactFlowBounds.left,
         y: event.clientY - reactFlowBounds.top,
       });
+
       const newNode = {
         data: {
-          title: `Node ${id}`,
+          title: "Node",
           text: "comment here",
           click: checkPosition,
           buttonTitle: "click here to check postition",
         },
         id: getId(),
-
         dragHandle: ".drag-handler",
         type,
         position,

@@ -51,9 +51,3 @@
 .react-flow__pane{
 background-color: rgba(7, 79, 131, 0.2);
 }
-.sidebar{
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #fff;
-}
